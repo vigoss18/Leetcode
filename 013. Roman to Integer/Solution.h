@@ -1,19 +1,27 @@
 class Solution {
 public:
-    string intToRoman(int num) {
-        string s[][11] = {{"", "M", "MM","MMM"},
-                        {"", "C","CC","CCC","CD","D","DC","DCC","DCCC","CM"},
-                        {"", "X", "XX","XXX","XL","L","LX","LXX","LXXX","XC"},   
-                        {"", "I","II","III","IV","V","VI","VII","VIII","IX"}};  
-        string ret = "";
-        int pos = 0;
-        while(num)
+    int romanToInt(string s) {
+        vector<int>p;
+        map<char,int>mp;
+        mp['I'] = 1,mp['V'] = 5,mp['X'] = 10;
+        mp['L'] = 50,mp['C'] = 100,mp['D'] = 500,mp['M'] = 1000;
+        for(int i = 0;i < s.size();i++)
         {
-            ret = s[3 - pos][num % 10] + ret;
-            num /= 10;
-            pos++;
+            p.push_back(mp[s[i]]);
+        }
+        int ret = 0;
+        for(int i = 0;i < p.size();i++)
+        {
+            if(i + 1 != p.size())
+            {
+                if(p[i] < p[i + 1])
+                    ret -= p[i];
+                else
+                    ret += p[i];
+            }
+            else
+                ret += p[i];
         }
         return ret;
     }
-
 };
