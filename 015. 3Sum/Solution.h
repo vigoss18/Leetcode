@@ -1,16 +1,27 @@
 class Solution {
 public:
-    string longestCommonPrefix(vector<string>& strs) {
-        if(strs.size() == 1)
-            return strs[0];
-        else if(strs.size() == 0)
-            return "";
-        for(int i = 0;;i++)
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(numsbegin(),nums.end());
+        for(int i = 0;i < nums.size();i++)
         {
-            for(int j = 1;j < strs.size();j++)
+            for(int j = i + 1;j < nums.size();j++)
             {
-                if(strs[j][i] != strs[0][i])
-                    return strs[0].substr(0,i);
+                int num = -nums[i] - nums[j];
+                if(num < nums[j])
+                    continue;
+                int l = j + 1,r = nums.size() - 1,mid;
+                while(l < r)
+                {
+                    mid = (l + r) / 2;
+                    if(nums[i] > nums[mid])
+                        r = mid;
+                    else
+                        l = mid + 1;
+                }
+                if(num == nums[(l + r) / 2])
+                {
+                    
+                }
             }
         }
     }
