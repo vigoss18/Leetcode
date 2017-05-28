@@ -1,26 +1,33 @@
 class Solution {
 public:
-    int longestValidParentheses(string s) {
-        stack<int>st;
-        for(int i = 0;i < s.size();i++)
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int>ret;
+        ret.push_back(-1);
+        ret.push_back(-1);
+        int l = 0,r = nums.size() - 1;
+        while(l <= r)
         {
-            if(s[i] == '(')
-                st.push(i);
-            else if(!st.empty())
+            int mid = (l + r) / 2;
+            if(nums[mid] > target)
             {
-                s[st.top()] = '.';
-                s[i] = '.';
-                st.pop();
+                r = mid- 1;
+            }
+            else if(nums[mid] < target)
+            {
+                l = mid + 1;
+            }
+            else
+            {
+                int l1 = mid,r1 = mid;
+                while(l1 >= 0 && nums[l1] == target)
+                    l1--;
+                while(r1 < nums.size() && nums[r1] == target)
+                    r1++;
+                ret[0] = l1 + 1,ret[1] = r1 - 1;
+                break;
             }
         }
-        int tmp = 0,maxn = 0;
-        for(int i = 0;i < s.size();i++)
-        {
-            if(s[i] == '.')
-                tmp++;
-            else
-                maxn = max(maxn,tmp),tmp = 0;
-        }
-        return max(maxn,tmp);
+        return ret;
     }
+    
 };
